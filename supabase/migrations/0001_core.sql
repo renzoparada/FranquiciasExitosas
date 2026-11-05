@@ -59,7 +59,7 @@ begin
     new.id,
     new.email,
     coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)),
-    coalesce((new.raw_user_meta_data->>'role')::public.app_role, 'cliente')
+    'cliente'  -- el rol nunca se toma de los metadatos del usuario; solo el admin lo cambia
   )
   on conflict (id) do nothing;
   return new;
