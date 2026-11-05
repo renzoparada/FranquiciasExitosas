@@ -556,7 +556,7 @@ end $$;
 
 -- Aprobación digital del acta de una puerta (regla 6).
 create or replace function public.approve_gate_minutes(p_minutes uuid, p_full_name text, p_ip text default null)
-returns void language plpgsql security definer set search_path = public as $$
+returns void language plpgsql security definer set search_path = public, extensions as $$
 declare
   m         public.gate_minutes%rowtype;
   g         public.brand_gates%rowtype;

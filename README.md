@@ -24,7 +24,9 @@ Plataforma donde el consultor gestiona proyectos de franquiciamiento con el **M�
 | `migrations/0005_fees_reports.sql` | Honorarios, estado de cuenta, **regla 7**, informes y resumen del dashboard |
 | `migrations/0006_rls.sql` | Row Level Security en todas las tablas |
 | `migrations/0007_storage_realtime.sql` | Buckets de Storage y Realtime |
-| `seed.sql` | Datos de ejemplo: Kfresas y Vaca Lechera |
+| `migrations/0008_seed_demo_function.sql` | Función `seed_demo_escala()` para cargar el ejemplo Kfresas y Vaca Lechera |
+| `migrations/0009_hardening.sql` | Ajustes del Security/Performance Advisor (funciones internas no expuestas, índices) |
+| `seed.sql` | Cómo cargar el ejemplo |
 
 Las reglas ESCALA se aplican en la base de datos, no solo en la pantalla:
 
@@ -39,7 +41,8 @@ Las reglas ESCALA se aplican en la base de datos, no solo en la pantalla:
 ## 1. Configurar Supabase
 
 1. Crea el proyecto en [supabase.com](https://supabase.com). Región recomendada: **South America (São Paulo)**.
-2. En **SQL Editor**, ejecuta en orden los archivos de `supabase/migrations/` (0001 → 0007) y luego `supabase/seed.sql`. Con la CLI: `supabase link` y `supabase db push`.
+2. En **SQL Editor**, ejecuta en orden los archivos de `supabase/migrations/` (0001 → 0009). Con la CLI: `supabase link` y `supabase db push`.
+   > El proyecto de producción `mtwrkhtruwxxevamaqzc` ya tiene aplicadas las 9 migraciones.
 3. **Authentication → Sign In / Providers**: deja **Email** activo y **desactiva "Allow new users to sign up"**. Solo entran las personas que invita el consultor.
 4. **Authentication → URL Configuration**:
    - Site URL: `https://tu-dominio` (en local, `http://localhost:3000`).

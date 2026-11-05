@@ -120,7 +120,7 @@ create table public.franchise_terms (
 );
 
 create or replace function public.enforce_franchisee_first()
-returns trigger language plpgsql as $$
+returns trigger language plpgsql set search_path = public as $$
 begin
   if (new.entry_fee is not null or new.royalty_pct is not null) and new.payback_validated_at is null then
     raise exception 'REGLA 2 · El franquiciado gana primero: valida el payback de la unidad antes de guardar el canon o la regalía.'

@@ -272,5 +272,6 @@ create policy reports_select on public.reports for select to authenticated
 create policy reports_admin on public.reports for all to authenticated
   using (public.is_admin()) with check (public.is_admin());
 
--- Las funciones internas no se exponen como RPC a usuarios anónimos.
-revoke execute on all functions in schema public from anon;
+-- Las funciones no se exponen a usuarios anónimos.
+revoke execute on all functions in schema public from public, anon;
+grant execute on all functions in schema public to authenticated, service_role;
