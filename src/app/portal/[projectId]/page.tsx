@@ -36,19 +36,19 @@ export default async function ClientDashboard(props: PageProps<"/portal/[project
       .limit(10),
     supabase
       .from("deliverables")
-      .select("id, title, step_code, due_date, brands!inner(name, project_id)")
+      .select("id, brand_id, title, step_code, due_date, brands!inner(name, project_id)")
       .eq("brands.project_id", projectId)
       .eq("status", "enviado")
       .eq("visibility", "cliente")
       .order("due_date"),
     supabase
       .from("gate_minutes")
-      .select("id, title, brand_gates!inner(gate_code, brands!inner(name, project_id))")
+      .select("id, title, brand_gates!inner(id, gate_code, brands!inner(name, project_id))")
       .eq("brand_gates.brands.project_id", projectId)
       .eq("status", "enviado"),
     supabase
       .from("info_requests")
-      .select("id, title, status, due_date, brands!inner(name, project_id)", { count: "exact" })
+      .select("id, brand_id, title, status, due_date, brands!inner(name, project_id)", { count: "exact" })
       .eq("brands.project_id", projectId)
       .in("status", ["pendiente", "observado"])
       .order("sort")
@@ -78,8 +78,8 @@ export default async function ClientDashboard(props: PageProps<"/portal/[project
 
   const actions: ActionItem[] = [
     ...(minutes.data ?? []).map((m) => {
-      const g = m.brand_gates as unknown as { gate_code: string; brands: BrandRef };
-      return { id: m.id, type: "acta" as const, title: m.title, brand: g.brands?.name ?? "" };
+      const g = m.brand_gates as unknown as { id: string; gate_code: string; brands: BrandRef };
+      return { id: m.id, type: "acta" as const, title: m.title, brand: g.brands?.name ?? "", href: `/portal/${projectId}/puertas/${g.id}` };
     }),
     ...(deliverables.data ?? []).map((d) => ({
       id: d.id,
@@ -88,6 +88,7 @@ export default async function ClientDashboard(props: PageProps<"/portal/[project
       brand: (d.brands as unknown as BrandRef)?.name ?? "",
       step_code: d.step_code,
       due: d.due_date,
+      href: `/portal/${projectId}/entregables?marca=${d.brand_id}&d=${d.id}`,
     })),
     ...(requests.data ?? []).map((r) => ({
       id: r.id,
@@ -96,6 +97,7 @@ export default async function ClientDashboard(props: PageProps<"/portal/[project
       brand: (r.brands as unknown as BrandRef)?.name ?? "",
       observed: r.status === "observado",
       due: r.due_date,
+      href: `/portal/${projectId}/informacion?marca=${r.brand_id}`,
     })),
   ];
   const actionTotal = (minutes.data?.length ?? 0) + (deliverables.data?.length ?? 0) + (requests.count ?? 0);

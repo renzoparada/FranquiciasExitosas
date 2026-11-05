@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, FileCheck2, FileUp, Stamp } from "lucide-react";
 import { EscalaTile } from "@/components/escala/escala-tile";
 import { STEPS } from "@/lib/escala";
@@ -11,6 +12,7 @@ export type ActionItem = {
   step_code?: string | null;
   due?: string | null;
   observed?: boolean;
+  href?: string;
 };
 
 const meta = {
@@ -42,7 +44,8 @@ export function ActionRequired({ items, total }: { items: ActionItem[]; total: n
           {items.map((it) => {
             const letter = STEPS.find((s) => s.code === it.step_code)?.letter;
             return (
-              <li key={`${it.type}-${it.id}`} className="flex items-center gap-3 rounded-2xl bg-white/5 p-3">
+              <li key={`${it.type}-${it.id}`}>
+                <Link href={it.href ?? "#"} className="flex items-center gap-3 rounded-2xl bg-white/5 p-3 transition-colors hover:bg-white/10">
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
                   {meta[it.type].icon}
                 </span>
@@ -55,6 +58,7 @@ export function ActionRequired({ items, total }: { items: ActionItem[]; total: n
                   </p>
                 </div>
                 {letter ? <EscalaTile letter={letter} size="xs" /> : <ArrowRight className="size-4 text-canvas/40" />}
+                </Link>
               </li>
             );
           })}
