@@ -13,7 +13,7 @@ const s = StyleSheet.create({
   tile: { width: 18, height: 18, backgroundColor: RED, color: "white", fontFamily: "Helvetica-Bold", fontSize: 11, textAlign: "center", paddingTop: 3, borderRadius: 3 },
   tileOff: { backgroundColor: "#D2D2D7" },
   eyebrow: { fontSize: 8.5, color: RED, fontFamily: "Helvetica-Bold", letterSpacing: 1.5, textTransform: "uppercase" },
-  title: { fontSize: 22, fontFamily: "Helvetica-Bold", marginTop: 4, marginBottom: 4 },
+  title: { fontSize: 22, fontFamily: "Helvetica-Bold", marginTop: 4, marginBottom: 6, lineHeight: 1.15 },
   meta: { color: MUTED, marginBottom: 22 },
   gateRow: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 20, padding: 12, backgroundColor: "#F5F5F7", borderRadius: 6 },
   diamond: { width: 14, height: 14, backgroundColor: RED, transform: "rotate(45deg)" },
