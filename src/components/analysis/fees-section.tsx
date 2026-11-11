@@ -2,7 +2,6 @@ import { Plus } from "lucide-react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { addFranchiseSale, createFeePlan, updateInstallment, updateSale } from "@/app/actions/analysis";
 import { ActionForm } from "@/components/ui/action-form";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Field, Input, Select } from "@/components/ui/form";
