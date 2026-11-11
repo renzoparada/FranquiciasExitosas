@@ -60,7 +60,7 @@ export async function MatrixSection({
     criterio: c.name.replace("Disposición del fundador", "Fundador").replace("Simplicidad operativa", "Simplicidad").replace("Concepto diferenciado", "Concepto"),
     ...Object.fromEntries(brands.map((b) => [b.name, scores.find((s) => s.brand_id === b.id && s.criterion_code === c.code)?.score ?? 0])),
   }));
-  const path = `${base}?marca=${brand?.id}`;
+  const path = base.split("?")[0];
   const light = SEMAFORO[r?.traffic_light ?? "incompleto"];
 
   return (
@@ -69,7 +69,7 @@ export async function MatrixSection({
         {brands.length > 1 && (
           <div className="flex gap-1 rounded-full border border-line bg-surface p-1 text-sm">
             {brands.map((b) => (
-              <Link key={b.id} href={`${base}?marca=${b.id}`} className={cn("rounded-full px-4 py-1.5 font-semibold", b.id === brand?.id ? "bg-ink text-canvas" : "text-muted hover:text-ink")}>
+              <Link key={b.id} href={`${base}${base.includes("?") ? "&" : "?"}marca=${b.id}`} className={cn("rounded-full px-4 py-1.5 font-semibold", b.id === brand?.id ? "bg-ink text-canvas" : "text-muted hover:text-ink")}>
                 {b.name}
               </Link>
             ))}

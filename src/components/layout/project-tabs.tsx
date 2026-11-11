@@ -2,10 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarRange, FileCheck2, Home, Inbox, ListChecks, Stamp } from "lucide-react";
+import { BookText, CalendarRange, FileCheck2, FileText, Grid3x3, Home, Inbox, LineChart, ListChecks, Menu, Stamp, Store, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const ICONS = { home: Home, gantt: CalendarRange, tasks: ListChecks, deliverables: FileCheck2, gates: Stamp, info: Inbox };
+const ICONS = {
+  home: Home,
+  gantt: CalendarRange,
+  tasks: ListChecks,
+  deliverables: FileCheck2,
+  gates: Stamp,
+  info: Inbox,
+  matrix: Grid3x3,
+  competitors: Store,
+  finance: LineChart,
+  log: BookText,
+  fees: Wallet,
+  reports: FileText,
+  more: Menu,
+};
 export type TabIcon = keyof typeof ICONS;
 export type Tab = { href: string; label: string; icon: TabIcon; badge?: number; exact?: boolean };
 

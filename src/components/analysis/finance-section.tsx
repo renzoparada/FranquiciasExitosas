@@ -45,7 +45,7 @@ export async function FinanceSection({
   ]);
   const scenarios = (sc ?? []) as Scenario[];
   const t = terms as Terms;
-  const path = `${base}?marca=${brand?.id}`;
+  const path = base.split("?")[0];
 
   const valueOf = (s: string, m: FinMetric) => scenarios.find((x) => x.scenario === s)?.financial_values.find((v) => v.metric === m);
   const numbers = (s: string) => Object.fromEntries(FIN_METRICS.map((m) => [m.key, valueOf(s, m.key)?.value ?? null])) as Partial<Record<FinMetric, number | null>>;
@@ -64,7 +64,7 @@ export async function FinanceSection({
         {brands.length > 1 && (
           <div className="flex gap-1 rounded-full border border-line bg-surface p-1 text-sm">
             {brands.map((b) => (
-              <Link key={b.id} href={`${base}?marca=${b.id}`} className={cn("rounded-full px-4 py-1.5 font-semibold", b.id === brand?.id ? "bg-ink text-canvas" : "text-muted hover:text-ink")}>
+              <Link key={b.id} href={`${base}${base.includes("?") ? "&" : "?"}marca=${b.id}`} className={cn("rounded-full px-4 py-1.5 font-semibold", b.id === brand?.id ? "bg-ink text-canvas" : "text-muted hover:text-ink")}>
                 {b.name}
               </Link>
             ))}

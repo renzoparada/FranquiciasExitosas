@@ -164,6 +164,9 @@ export default async function ClientDashboard(props: PageProps<"/portal/[project
             ) : (
               <p className="mt-2 text-sm text-muted">Aún no hay una reunión agendada.</p>
             )}
+            {meeting.data && (
+              <a href={`/portal/${projectId}/reuniones`} className="mt-3 block text-xs font-semibold text-muted hover:text-brand">Ver todas las reuniones →</a>
+            )}
           </Card>
           <Card>
             <div className="flex items-center gap-2 text-brand">
@@ -171,9 +174,10 @@ export default async function ClientDashboard(props: PageProps<"/portal/[project
               <span className="text-xs font-semibold uppercase tracking-[0.14em]">Último informe</span>
             </div>
             {report.data ? (
-              <p className="mt-2 text-sm">
+              <a href={`/api/pdf/informe/${report.data.id}`} target="_blank" rel="noreferrer" className="mt-2 block text-sm hover:text-brand">
                 Informe quincenal del <strong>{day(report.data.period_start)}</strong> al <strong>{day(report.data.period_end)}</strong>
-              </p>
+                <span className="mt-1 block text-xs font-semibold text-brand">Descargar PDF →</span>
+              </a>
             ) : (
               <p className="mt-2 text-sm text-muted">El primer informe quincenal aparecerá aquí.</p>
             )}

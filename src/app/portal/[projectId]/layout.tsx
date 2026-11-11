@@ -28,6 +28,18 @@ export default async function PortalProjectLayout(props: LayoutProps<"/portal/[p
     { href: `${base}/entregables`, label: "Entregables", icon: "deliverables", badge: stats?.deliverables_to_review },
     { href: `${base}/puertas`, label: "Puertas", icon: "gates", badge: stats?.minutes_to_review },
     { href: `${base}/informacion`, label: "Información", icon: "info", badge: stats?.info_pending },
+    { href: `${base}/diagnostico`, label: "Diagnóstico", icon: "matrix" },
+    { href: `${base}/reuniones`, label: "Reuniones", icon: "log" },
+    { href: `${base}/informes`, label: "Informes", icon: "reports" },
+    { href: `${base}/estado-de-cuenta`, label: "Estado de cuenta", icon: "fees" },
+  ];
+  const mobile: Tab[] = [
+    tabs[0],
+    tabs[1],
+    { ...tabs[3], label: "Entregas" },
+    tabs[4],
+    { ...tabs[5], label: "Info" },
+    { href: `${base}/mas`, label: "Más", icon: "more" },
   ];
 
   return (
@@ -49,7 +61,7 @@ export default async function PortalProjectLayout(props: LayoutProps<"/portal/[p
         <ProjectTabs tabs={tabs} />
       </div>
       <div className="pb-20 sm:pb-0">{props.children}</div>
-      <BottomNav tabs={tabs.map((t) => ({ ...t, label: t.label === "Información" ? "Info" : t.label === "Entregables" ? "Entregas" : t.label }))} />
+      <BottomNav tabs={mobile} />
     </CelebrationProvider>
   );
 }

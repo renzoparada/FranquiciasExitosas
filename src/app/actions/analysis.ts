@@ -18,7 +18,7 @@ function fail(error: { message: string; code?: string } | null | undefined, fall
   return { ok: false, message: error.message || fallback };
 }
 function refresh(fd: FormData) {
-  const path = String(fd.get("path") ?? "");
+  const path = String(fd.get("path") ?? "").split("?")[0];
   if (path.startsWith("/portal/") || path.startsWith("/consultor/")) revalidatePath(path);
 }
 const str = (fd: FormData, k: string) => {

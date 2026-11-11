@@ -5,7 +5,7 @@ import { requireStaff } from "@/lib/auth";
 
 export default async function ConsoleProjectLayout(props: LayoutProps<"/consultor/p/[projectId]">) {
   const { projectId } = await props.params;
-  const { supabase } = await requireStaff();
+  const { supabase, profile } = await requireStaff();
   const { data: project } = await supabase.from("projects").select("id, name").eq("id", projectId).maybeSingle();
   if (!project) notFound();
   const base = `/consultor/p/${projectId}`;
@@ -16,6 +16,12 @@ export default async function ConsoleProjectLayout(props: LayoutProps<"/consulto
     { href: `${base}/entregables`, label: "Entregables", icon: "deliverables" },
     { href: `${base}/puertas`, label: "Puertas y actas", icon: "gates" },
     { href: `${base}/informacion`, label: "Información", icon: "info" },
+    { href: `${base}/matriz`, label: "Matriz", icon: "matrix" },
+    { href: `${base}/competidores`, label: "Competidores", icon: "competitors" },
+    { href: `${base}/modelo-financiero`, label: "Modelo financiero", icon: "finance" },
+    { href: `${base}/bitacora`, label: "Bitácora", icon: "log" },
+    ...(profile.role === "admin" ? [{ href: `${base}/honorarios`, label: "Honorarios", icon: "fees" as const }] : []),
+    { href: `${base}/informes`, label: "Informes", icon: "reports" },
   ];
   return (
     <div className="space-y-6">
